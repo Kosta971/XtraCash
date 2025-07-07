@@ -1,1 +1,44 @@
-
+<!DOCTYPE html>
+<html lang="en" class="bg-gray-900 text-white">
+<head>
+  <meta charset="UTF-8" />
+  <title>XtraCash Wallet</title>
+  <script src='https://cdn.tailwindcss.com'></script>
+</head>
+<body class="p-4">
+  <div class="max-w-xl mx-auto mt-10 bg-gray-800 rounded-2xl p-6 shadow-xl">
+    {% if not session.username %}
+      <h1 class="text-2xl mb-4">Welcome to XtraCash 💸</h1>
+      <form method="post" action="/register" class="mb-4">
+        <input name="username" placeholder="Username" class="w-full p-2 rounded mb-2 text-black" required />
+        <input name="password" type="password" placeholder="Password" class="w-full p-2 rounded mb-2 text-black" required />
+        <button class="bg-green-600 px-4 py-2 rounded">Register</button>
+      </form>
+      <form method="post" action="/login">
+        <input name="username" placeholder="Username" class="w-full p-2 rounded mb-2 text-black" required />
+        <input name="password" type="password" placeholder="Password" class="w-full p-2 rounded mb-2 text-black" required />
+        <button class="bg-blue-600 px-4 py-2 rounded">Login</button>
+      </form>
+    {% else %}
+      <h1 class="text-xl mb-2">Hello, {{ session.username }} 👋</h1>
+      <p class="mb-2">Balance: <strong>{{ balance }}</strong> XTRA</p>
+      <form method="post" action="/send" class="mb-4">
+        <input name="to" placeholder="Send to user" class="w-full p-2 rounded mb-2 text-black" required />
+        <input name="amount" placeholder="Amount" type="number" min="1" class="w-full p-2 rounded mb-2 text-black" required />
+        <button class="bg-yellow-500 px-4 py-2 rounded">Send</button>
+      </form>
+      <form method="post" action="/topup_real" class="mb-4">
+        <input name="amount" placeholder="Top up XTRA amount" type="number" min="1" class="w-full p-2 rounded mb-2 text-black" required />
+        <select name="pay_currency" class="w-full p-2 rounded mb-2 text-black" required>
+          <option value="usd">USD (Card/Crypto)</option>
+          <option value="btc">Bitcoin</option>
+          <option value="eth">Ethereum</option>
+          <option value="usdt">USDT</option>
+        </select>
+        <button class="bg-purple-600 px-4 py-2 rounded">Pay with Crypto / Card</button>
+      </form>
+      <a href="/logout" class="text-red-400">Logout</a>
+    {% endif %}
+  </div>
+</body>
+</html>
