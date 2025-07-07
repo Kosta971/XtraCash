@@ -172,3 +172,24 @@ def topup_real():
 if __name__ == "__main__":
     init_db()
     app.run(debug=True)
+from flask import Flask, request, jsonify, render_template_string, redirect, session
+import sqlite3
+import hashlib
+import time
+import requests
+import os
+
+app = Flask(__name__)
+app.secret_key = "xtracash_secret"
+DB = "xtracash.db"
+NOWPAYMENTS_API_KEY = "bMecyltCU7dw/2I40tS3cGeLOPD3eDlo"
+NOWPAYMENTS_URL = "https://api.nowpayments.io/v1/invoice"
+
+# 👇 UI шаблон и все маршруты остаются без изменений
+# (из предыдущего сообщения можно скопировать всё остальное как есть)
+
+# в самом конце:
+if __name__ == "__main__":
+    init_db()
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
